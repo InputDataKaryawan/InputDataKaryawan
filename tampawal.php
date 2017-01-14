@@ -63,7 +63,6 @@ Email	 	 : hakkobiorichard[at]gmail.com
       			<select name="kategori">
         		<option value="nik">NIK</option>
         		<option value="nama">Nama</option>
-        		<option value="alamat">Alamat</option>
       			</select>
     			<input name="tcari" type="text" id="txt_cari">
     			<input name="bcari" type="submit" value="Cari">
@@ -90,22 +89,22 @@ Email	 	 : hakkobiorichard[at]gmail.com
 		$tcari = $_POST['tcari'];
 		$kategori=$_POST['kategori'];
 		
-		$query = mysql_query("SELECT * from karyawan
+		$query = mysqli_query($koneksi, "SELECT * from karyawan
 				 where $kategori LIKE '%$tcari%'
-				 ORDER BY nik") or die(mysql_error());
+				 ORDER BY nik");
 		}else{		
 		
-		$query = mysql_query("SELECT * FROM karyawan ORDER BY nik DESC") or die(mysql_error());
+		$query = mysqli_query($koneksi, "SELECT * FROM karyawan ORDER BY nik ASC");
 		}
 		
-		if(mysql_num_rows($query) == 0){	
+		if(mysqli_num_rows($query) == 0){	
 			
 			echo '<tr><td colspan="6">Tidak ada data!</td></tr>';
 			
 		}else{	
 			
 			$no = 1;
-			while($data = mysql_fetch_assoc($query)){
+			while($data = mysqli_fetch_assoc($query)){
 						echo '
 						<tr>
 							<td>'.$no.'</td>
@@ -115,6 +114,8 @@ Email	 	 : hakkobiorichard[at]gmail.com
                             <td>'.$data['tanggal_lahir'].'</td>
 							<td>'.$data['no_telepon'].'</td>
                             <td>'.$data['jabatan'].'</td>
+                            <td>'.$data['username'].'</td>
+                            <td>'.$data['password'].'</td>
 							<td>';
 							if($data['status'] == 'Tetap'){
 								echo '<span class="label label-success">Tetap</span>';
@@ -131,7 +132,7 @@ Email	 	 : hakkobiorichard[at]gmail.com
 								
 								<a href="edit.php?nik='.$data['nik'].'" title="Edit Data" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
 								<a href="password.php?nik='.$data['nik'].'" title="Ganti Password" data-placement="bottom" data-toggle="tooltip" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></a>
-								<a href="index.php?aksi=delete&nik='.$data['nik'].'" title="Hapus Data" onclick="return confirm(\'Anda yakin akan menghapus data '.$data['nama'].'?\')" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+								<a href="tampawal.php?aksi=delete&nik='.$data['nik'].'" title="Hapus Data" onclick="return confirm(\'Anda yakin akan menghapus data '.$data['nama'].'?\')" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 							</td>
 						</tr>
 						';
