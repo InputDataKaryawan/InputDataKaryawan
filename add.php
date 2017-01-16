@@ -6,10 +6,6 @@ include("koneksi.php");
 <head>
 <!--
 Project      : Data Karyawan CRUD MySQLi (Create, read, Update, Delete) PHP, MySQLi dan Bootstrap
-Author		 : Hakko Bio Richard, A.Md
-Website		 : http://www.niqoweb.com
-Blog         : http://www.acchoblues.blogspot.com
-Email	 	 : hakkobiorichard[at]gmail.com
 -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -46,7 +42,7 @@ Email	 	 : hakkobiorichard[at]gmail.com
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="index.php">Master Data</a></li>
+					<li><a href="tampawal.php">Master Data</a></li>
 					<li class="active"><a href="add.php">Tambah Data</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
@@ -70,6 +66,7 @@ Email	 	 : hakkobiorichard[at]gmail.com
 				$username		 = $_POST['username'];
 				$pass1	         = $_POST['pass1'];
 				$pass2           = $_POST['pass2'];
+				
 				
 				$cek = mysqli_query($koneksi, "SELECT * FROM karyawan WHERE nik='$nik'");
 				if(mysqli_num_rows($cek) == 0){
@@ -169,11 +166,17 @@ Email	 	 : hakkobiorichard[at]gmail.com
 						<input type="password" name="pass2" class="form-control" placeholder="Ulangi Password">
 					</div>
 				</div>
+                 <div class="form-group">
+					<label class="col-sm-3 control-label">Pilih Gambar</label>
+					<div class="col-sm-2">
+					  <input class="input-group" type="file" name="user_image" accept="image/*" />
+					</div>
+				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">&nbsp;</label>
 					<div class="col-sm-6">
 						<input type="submit" name="add" class="btn btn-sm btn-primary" value="Simpan">
-						<a href="index.php" class="btn btn-sm btn-danger">Batal</a>
+						<a href="tampawal.php" class="btn btn-sm btn-danger">Batal</a>
 					</div>
 				</div>
 			</form>
