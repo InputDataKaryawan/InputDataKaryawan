@@ -6,15 +6,11 @@ include("koneksi.php");
 <head>
 <!--
 Project      : Data Karyawan CRUD MySQLi (Create, read, Update, Delete) PHP, MySQLi dan Bootstrap
-Author		 : Hakko Bio Richard, A.Md
-Website		 : http://www.niqoweb.com
-Blog         : http://www.acchoblues.blogspot.com
-Email	 	 : hakkobiorichard[at]gmail.com
 -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Latihan MySQLi</title>
+	<title>Data Karyawan</title>
 
 	<!-- Bootstrap -->
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -46,7 +42,7 @@ Email	 	 : hakkobiorichard[at]gmail.com
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="index.php">Master Data</a></li>
+					<li><a href="tampawal.php">Master Data</a></li>
 					<li><a href="add.php">Tambah Data</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
@@ -169,7 +165,7 @@ Email	 	 : hakkobiorichard[at]gmail.com
 					<label class="col-sm-3 control-label">&nbsp;</label>
 					<div class="col-sm-6">
 						<input type="submit" name="save" class="btn btn-sm btn-primary" value="Simpan">
-						<a href="index.php" class="btn btn-sm btn-danger">Batal</a>
+						<a href="tampawal.php" class="btn btn-sm btn-danger">Batal</a>
 					</div>
 				</div>
 			</form>
