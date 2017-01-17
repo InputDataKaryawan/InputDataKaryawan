@@ -111,7 +111,7 @@ Project      : Data Karyawan CRUD MySQLi (Create, read, Update, Delete) PHP, MyS
 				</tr>
                 <tr>
 					<th>Foto </th><br>
-					<td><img src="user_images/<?php echo $row['userPic']; ?>" class="img-rounded" width="250px" height="250px" />
+					<td><img src="user_image/<?php echo $row['gambar']; ?>" class="img-rounded" width="250px" height="250px" />
 				</tr>
 			</table>
 			
