@@ -1,9 +1,12 @@
 <?php
-$host = "localhost";	
-$user = "root";	
-$pass = "";	
-$name = "db_butik";
+$db_host = "localhost";
+$db_user = "root";
+$db_pass = "";
+$db_name = "db_butik";
 
-$koneksi = mysql_connect($host, $user, $pass) or die("Koneksi ke database gagal!");
-mysql_select_db($name, $koneksi) or die("Tidak ada database yang dipilih!");
+$koneksi = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+
+if(mysqli_connect_errno()){
+    echo'Gagal melakukan koneksi ke database : ' .mysqli_connect_error();
+}
 ?>
