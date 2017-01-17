@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors',0);
 include("koneksi.php");
 ?>
 <!DOCTYPE html>
@@ -10,7 +11,7 @@ Project      : Data Karyawan CRUD MySQLi (Create, read, Update, Delete) PHP, MyS
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Latihan MySQLi</title>
+	<title>Data Karyawan</title>
 
 	<!-- Bootstrap -->
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -67,13 +68,16 @@ Project      : Data Karyawan CRUD MySQLi (Create, read, Update, Delete) PHP, MyS
 				$pass1	         = $_POST['pass1'];
 				$pass2           = $_POST['pass2'];
 				
+				$imgFile = $_POST['user_image'];
+				$tmp_dir = $_FILES['user_image']['tmp_name'];
+				$imgSize = $_FILES['user_image']['size'];
 				
 				$cek = mysqli_query($koneksi, "SELECT * FROM karyawan WHERE nik='$nik'");
 				if(mysqli_num_rows($cek) == 0){
 					if($pass1 == $pass2){
 						$pass = md5($pass1);
-						$insert = mysqli_query($koneksi, "INSERT INTO karyawan(nik, nama, tempat_lahir, tanggal_lahir, alamat, no_telepon, jabatan, status, username, password)
-															VALUES('$nik','$nama', '$tempat_lahir', '$tanggal_lahir', '$alamat', '$no_telepon', '$jabatan', '$status', '$username', '$pass')") or die(mysqli_error());
+						$insert = mysqli_query($koneksi, "INSERT INTO karyawan(nik, nama, tempat_lahir, tanggal_lahir, alamat, no_telepon, jabatan, status, username, password, gambar)
+															VALUES('$nik','$nama', '$tempat_lahir', '$tanggal_lahir', '$alamat', '$no_telepon', '$jabatan', '$status', '$username', '$pass', '$imgFile')") or die(mysqli_error());
 						if($insert){
 							echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Data Karyawan Berhasil Di Simpan.</div>';
 						}else{
@@ -85,7 +89,32 @@ Project      : Data Karyawan CRUD MySQLi (Create, read, Update, Delete) PHP, MyS
 				}else{
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>NIK Sudah Ada..!</div>';
 				}
+			}else
+		{
+			$upload_dir = 'user_images/'; // upload directory
+	
+			$imgExt = strtolower(pathinfo($imgFile,PATHINFO_EXTENSION)); // get image extension
+		
+			// valid image extensions
+			$valid_extensions = array('jpeg', 'jpg', 'png'); // valid extensions
+		
+			// rename uploading image
+			$userpic = rand(1000,1000000).".".$imgExt;
+				
+			// allow valid image file formats
+			if(in_array($imgExt, $valid_extensions)){			
+				// Check file size '5MB'
+				if($imgSize < 5000000)				{
+					move_uploaded_file($tmp_dir,$upload_dir.$userpic);
+				}
+				else{
+					$errMSG = "File yang Anda masukkan terlalu besar.";
+				}
 			}
+			else{
+				$errMSG = "Hanya JPG, JPEG, PNG yang dapat diupload";		
+			}
+		}
 			?>
 			
 			<form class="form-horizontal" action="" method="post">
@@ -166,12 +195,13 @@ Project      : Data Karyawan CRUD MySQLi (Create, read, Update, Delete) PHP, MyS
 						<input type="password" name="pass2" class="form-control" placeholder="Ulangi Password">
 					</div>
 				</div>
-                 <div class="form-group">
+                <div class="form-group">
 					<label class="col-sm-3 control-label">Pilih Gambar</label>
 					<div class="col-sm-2">
 					  <input class="input-group" type="file" name="user_image" accept="image/*" />
 					</div>
 				</div>
+                
 				<div class="form-group">
 					<label class="col-sm-3 control-label">&nbsp;</label>
 					<div class="col-sm-6">
